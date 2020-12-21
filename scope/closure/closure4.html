@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    for (var i = 1; i <= 5; i++) {
+      setTimeout(() => {
+        console.log(i);
+      }, i*1000);
+    }
+    
+    // fn -> timer -> global:i
+    // fn ->> timer1 ->  global:i
+    // fn ->> timer2 ->  global:i
+    // fn ->> timer3 ->  global:i. 
+    // fn ->> timer4 ->  global:i. 
+    // fn ->> timer5 ->  global:i. 
+
+    // function setTimeout(fn, x) {
+      // x:1000 -> fn : 启动
+      // x:2000 -> fn : 启动
+      // x:3000 -> fn : 启动
+      // x:4000 -> fn : 启动
+    // }
+  </script>
+</body>
+</html>

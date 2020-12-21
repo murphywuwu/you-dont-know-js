@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function setupBot(name, selector) {
+      $(selector).click(function activator() {
+        console.log('activating: ' + name)
+      })
+    }
+
+    setupBot('closure Bot1', '#bot 1');
+    setupBot('closure Bot2', '#bot 2');
+  </script>
+</body>
+</html>

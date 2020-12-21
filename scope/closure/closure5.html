@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    for (var i = 1; i <= 5; i++) {
+      (function(j) {
+        setTimeout(() => {
+          console.log(j)
+        }, j * 1000);
+      })(i)
+    }
+
+    // fn ->> timer1 -> 匿名函数1 -> global:i
+    // fn ->> timer2 -> 匿名函数2 -> global:i
+    // fn ->> timer3 -> 匿名函数3 -> global:i. 
+    // fn ->> timer4 -> 匿名函数4 -> global:i. 
+    // fn ->> timer5 -> 匿名函数5 -> global:i. 
+  </script>
+</body>
+</html>
