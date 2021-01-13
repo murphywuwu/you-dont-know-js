@@ -13,7 +13,9 @@ while(true) {
 
     // 现在，执行下一个事件
     try {
-      event();
+      // Runtime.push(event);
+      Runtime.run(event);
+      // event();
     }
     catch(err) {
       reportError(err);
