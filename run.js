@@ -1,3 +1,5 @@
+// https://juejin.cn/post/6844903741611573255
+
 Runtime = {
   executionContextStack: []
 }
@@ -17,6 +19,20 @@ Runtime.push = function(newContext) {
   this.executionContextStack.push(newContext);
 }
 
+Runtime.FunctionCreate = function(parameterList, functionBody, scope, strict) {
+  var F = object.create();
+  F.[[Class]] = 'Function';
+  F.[[Code]] = functionBody;
+  F.[[FormalParameters]] = parameterList;
+  F.[[prototype]] = scope;
+  F.prototype = {
+    constructor: F
+  }
+  F.[[Call]] = [[internal method]]
+
+  return F;
+}
+
 Runtime.run = function(context) {
   this.push(context);
   var current = Runtime.getRunningExecutinContext();
@@ -32,10 +48,10 @@ Runtime.run = function(context) {
     var currentLexicalEnviroment = current.LexicalEnviroment;
     newLexicalenviroment.outer = currentLexicalEnviroment;
     // 使用newFexicalEnviroment创建函数对象
-    var fo = FunctionCreate(argumentlist, funcbody, newLexicalenviroment, strict);
+    var fo = this.FunctionCreate(argumentlist, funcbody, newLexicalenviroment, strict);
     Runtime.initialize('foo', fo);
 
-    // 创建新的上下文对象
+    // 创建新的执行上下文对象
     var foExecutionContext = new ExecutionContext(newLexicalenviroment, newLexicalenviroment, ThisBinding);
 
     // this.push(foExecutionContext);
