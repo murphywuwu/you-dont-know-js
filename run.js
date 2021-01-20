@@ -24,7 +24,7 @@ Runtime.FunctionCreate = function(parameterList, functionBody, scope, strict) {
   F.[[Class]] = 'Function';
   F.[[Code]] = functionBody;
   F.[[FormalParameters]] = parameterList;
-  F.[[prototype]] = scope;
+  F.[[scope]] = scope;
   F.prototype = {
     constructor: F
   }
@@ -38,25 +38,28 @@ Runtime.run = function(context) {
   var current = Runtime.getRunningExecutinContext();
   
   // register
-  current.register('a', undefined);
+  this.register('a');
 
-  // initialize
-  if (typeof current.func === 'function') {
+  // function: register && initialize
+  this.register('foo');
+  // 获取当前词法环境
+  var currentLexicalEnviroment = current.LexicalEnviroment;
+  // 创建函数对象
+  var fo = this.FunctionCreate(argumentlist, funcbody, currentLexicalEnviroment, strict);
+  this.initialize('foo');
+
+  // 当碰到函数调用时：foo()
+  if (exp === "foo()") {
     // 创建一个新的词法环境
     var newLexicalenviroment = new LexicalEnviroment();
-    // 关联当前词法环境
-    var currentLexicalEnviroment = current.LexicalEnviroment;
-    newLexicalenviroment.outer = currentLexicalEnviroment;
-    // 使用newFexicalEnviroment创建函数对象
-    var fo = this.FunctionCreate(argumentlist, funcbody, newLexicalenviroment, strict);
-    Runtime.initialize('foo', fo);
+    newLexicalenviroment.outer = copy(this.getIdentifierValue('foo').[[scope]]);
 
     // 创建新的执行上下文对象
     var foExecutionContext = new ExecutionContext(newLexicalenviroment, newLexicalenviroment, ThisBinding);
 
     // this.push(foExecutionContext);
     result = this.run(foExecutionContext);
-    current.initialize('b', result);
+    this.initialize('b', result);
   }
   else {
     this.pop();
