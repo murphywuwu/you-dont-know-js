@@ -46,7 +46,7 @@ Runtime.run = function(context) {
   var currentLexicalEnviroment = current.LexicalEnviroment;
   // 创建函数对象
   var fo = this.FunctionCreate(argumentlist, funcbody, currentLexicalEnviroment, strict);
-  this.initialize('foo');
+  this.initialize('foo', fo);
 
   // 当碰到函数调用时：foo()
   if (exp === "foo()") {
@@ -59,7 +59,7 @@ Runtime.run = function(context) {
 
     // this.push(foExecutionContext);
     result = this.run(foExecutionContext);
-    this.initialize('b', result);
+    // this.initialize('b', result);
   }
   else {
     this.pop();
