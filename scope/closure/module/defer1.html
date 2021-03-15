@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p id="before">...content before scripts...</p>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => alert("DOM ready after defer!"));
+  </script>
+
+  <script src="./test.js" defer></script>
+   
+  <p id="after">...content after scripts...</p>
+</body>
+</html>
