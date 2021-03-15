@@ -4,6 +4,7 @@ try {
   console.log(after.innerHTML);
   // 浏览器在遇到含有defer属性的script标签时会先再后台加载js文件，等到页面中的dom元素构建完成时，再执行该js代码
   // script with defer always execute when the DOM is ready(but before DOMContentLoaded event)
+  // scripts loads 'in the background'，and then runs when the DOM is fully built
   alert('after is ready for async script ');
 }
 catch {
